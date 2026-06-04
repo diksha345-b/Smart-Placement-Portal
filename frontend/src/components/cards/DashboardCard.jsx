@@ -5,22 +5,22 @@
 const DashboardCard = ({ label, value, icon, helper, accent = 'primary' }) => {
   const accentClass =
     accent === 'green'
-      ? 'bg-green-50 text-green-600'
+      ? 'bg-emerald-100 text-emerald-700'
       : accent === 'yellow'
-      ? 'bg-yellow-50 text-yellow-600'
+      ? 'bg-amber-100 text-amber-700'
       : accent === 'red'
-      ? 'bg-red-50 text-red-600'
-      : 'bg-primary-50 text-primary-600';
+      ? 'bg-rose-100 text-rose-700'
+      : 'bg-gradient-to-r from-primary-500 to-cyan-400 text-white';
 
   return (
-    <div className="card flex items-center justify-between">
+    <div className="surface-panel flex items-center justify-between gap-4 overflow-hidden">
       <div>
-        <p className="text-sm font-medium text-gray-500">{label}</p>
-        <p className="mt-1 text-2xl font-semibold text-gray-900">{value}</p>
-        {helper && <p className="mt-1 text-xs text-gray-400">{helper}</p>}
+        <p className="text-sm font-medium text-slate-500">{label}</p>
+        <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
+        {helper && <p className="mt-2 text-sm text-slate-500">{helper}</p>}
       </div>
       {icon && (
-        <div className={`flex h-11 w-11 items-center justify-center rounded-lg ${accentClass}`}>
+        <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-3xl ${accentClass}`}>
           {icon}
         </div>
       )}

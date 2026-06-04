@@ -1,5 +1,9 @@
 # Smart Placement Portal (MERN)
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Smart--Placement--Portal-blue?logo=github)](https://github.com/diksha345-b/Smart-Placement-Portal)
+
+Live repository: https://github.com/diksha345-b/Smart-Placement-Portal
+
 A production-style placement portal where **students** upload resumes and apply
 to jobs, **recruiters (HR)** post jobs and review auto-ranked applicants, and
 **admins** manage users, jobs, and view platform analytics.
@@ -188,4 +192,6 @@ All responses follow a consistent shape:
 - Admin accounts are created only via the seed script, not the public register endpoint.
 - Resume uploads are stored under `backend/uploads/` and ignored by git.
 - Passwords are hashed with bcrypt and never returned by the API.
+
+**Owner:** Diksha Bajpai
 ```

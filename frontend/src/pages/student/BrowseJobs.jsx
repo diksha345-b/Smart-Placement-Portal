@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import PageHeader from '../../components/common/PageHeader';
 import Input from '../../components/common/Input';
@@ -22,23 +22,41 @@ const BrowseJobs = () => {
   const [jobType, setJobType] = useState('');
   const [page, setPage] = useState(1);
   const debouncedSearch = useDebounce(search, 400);
+  const prevFilterRef = useRef({ search: '', jobType: '' });
 
   useEffect(() => {
-    setLoading(true);
-    jobService
-      .list({ search: debouncedSearch, jobType, status: 'Open', page, limit: 9 })
-      .then((data) => {
+    const fetchJobs = async () => {
+      setLoading(true);
+      try {
+        const data = await jobService.list({
+          search: debouncedSearch,
+          jobType,
+          status: 'Open',
+          page,
+          limit: 9,
+        });
         setJobs(data.jobs);
         setPagination(data.pagination);
-      })
-      .catch((err) => toast.error(getErrorMessage(err)))
-      .finally(() => setLoading(false));
-  }, [debouncedSearch, jobType, page]);
+      } catch (err) {
+        toast.error(getErrorMessage(err));
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Reset to page 1 whenever filters change.
-  useEffect(() => {
-    setPage(1);
-  }, [debouncedSearch, jobType]);
+    const filtersChanged =
+      prevFilterRef.current.search !== debouncedSearch ||
+      prevFilterRef.current.jobType !== jobType;
+
+    if (filtersChanged && page !== 1) {
+      prevFilterRef.current = { search: debouncedSearch, jobType };
+      setPage(1);
+      return;
+    }
+
+    prevFilterRef.current = { search: debouncedSearch, jobType };
+    fetchJobs();
+  }, [debouncedSearch, jobType, page]);
 
   return (
     <div>

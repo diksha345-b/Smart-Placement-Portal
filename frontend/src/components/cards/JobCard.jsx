@@ -13,7 +13,7 @@ const JobCard = ({ job, to }) => {
         <div>
           <h3 className="text-base font-semibold text-gray-900">{job.title}</h3>
           <p className="text-sm text-gray-500">
-            {job.company} · {job.location}
+            {(job.company || job.postedBy?.company) ?? 'Company not specified'} · {job.location}
           </p>
         </div>
         <span className={`badge ${statusBadgeClass(job.status)}`}>{job.status}</span>

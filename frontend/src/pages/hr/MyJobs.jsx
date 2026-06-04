@@ -25,6 +25,11 @@ const MyJobs = () => {
       .finally(() => setLoading(false));
   };
 
+  const totalJobs = jobs.length;
+  const openJobs = jobs.filter((job) => job.status === 'Open').length;
+  const closedJobs = jobs.filter((job) => job.status === 'Closed').length;
+  const totalApplicants = jobs.reduce((sum, job) => sum + (job.applicantCount || 0), 0);
+
   useEffect(() => {
     load();
   }, []);
@@ -101,12 +106,33 @@ const MyJobs = () => {
         }
       />
 
-      <Table
-        columns={columns}
-        data={jobs}
-        loading={loading}
-        emptyMessage="You haven't posted any jobs yet."
-      />
+      <div className="grid gap-4 sm:grid-cols-3 mb-6">
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
+          <p className="text-sm text-slate-500">Jobs posted</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{totalJobs}</p>
+          <p className="mt-1 text-sm text-slate-500">Total active listings</p>
+        </div>
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
+          <p className="text-sm text-slate-500">Open roles</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{openJobs}</p>
+          <p className="mt-1 text-sm text-slate-500">Roles still recruiting</p>
+        </div>
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
+          <p className="text-sm text-slate-500">Applicants</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{totalApplicants}</p>
+          <p className="mt-1 text-sm text-slate-500">Candidates awaiting review</p>
+        </div>
+      </div>
+
+      <div className="card p-0 overflow-hidden">
+        <Table
+          columns={columns}
+          data={jobs}
+          loading={loading}
+          rowKey={(row) => row._id}
+          emptyMessage="You haven't posted any jobs yet. Post your first role to attract candidates."
+        />
+      </div>
 
       <Modal
         open={Boolean(deleteTarget)}
@@ -123,9 +149,9 @@ const MyJobs = () => {
           </>
         }
       >
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-slate-600">
           Are you sure you want to delete{' '}
-          <span className="font-medium text-gray-900">{deleteTarget?.title}</span>? This will also
+          <span className="font-medium text-slate-900">{deleteTarget?.title}</span>? This will also
           remove all related applications. This action cannot be undone.
         </p>
       </Modal>

@@ -23,6 +23,11 @@ const Applicants = () => {
   const [updatingId, setUpdatingId] = useState(null);
   const [detail, setDetail] = useState(null);
 
+  const totalApplicants = applications.length;
+  const shortlisted = applications.filter((app) => app.status === 'Shortlisted').length;
+  const underReview = applications.filter((app) => app.status === 'Under Review').length;
+  const rejected = applications.filter((app) => app.status === 'Rejected').length;
+
   const load = () => {
     setLoading(true);
     applicationService
@@ -68,13 +73,34 @@ const Applicants = () => {
         subtitle={job ? `For: ${job.title} · ${applications.length} applicant(s)` : ''}
       />
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="grid gap-4 sm:grid-cols-4 mb-6">
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
+          <p className="text-sm text-slate-500">Total applicants</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{totalApplicants}</p>
+        </div>
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
+          <p className="text-sm text-slate-500">Shortlisted</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{shortlisted}</p>
+        </div>
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
+          <p className="text-sm text-slate-500">Under review</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{underReview}</p>
+        </div>
+        <div className="rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm">
+          <p className="text-sm text-slate-500">Rejected</p>
+          <p className="mt-3 text-3xl font-semibold text-slate-900">{rejected}</p>
+        </div>
+      </div>
+
+      <div className="mb-6 flex flex-wrap gap-2">
         {STATUS_FILTERS.map((s) => (
           <button
             key={s}
             onClick={() => setFilter(s)}
-            className={`rounded-full px-3 py-1 text-xs font-medium ${
-              filter === s ? 'bg-primary-600 text-white' : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              filter === s
+                ? 'bg-primary-600 text-white shadow-sm'
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
             }`}
           >
             {s}
@@ -85,7 +111,7 @@ const Applicants = () => {
       {filtered.length === 0 ? (
         <EmptyState title="No applicants" message="No applications match this filter yet." />
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {filtered.map((app) => {
             const student = app.student || {};
             return (

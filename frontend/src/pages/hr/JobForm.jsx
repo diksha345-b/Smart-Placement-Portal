@@ -95,15 +95,21 @@ const JobForm = () => {
   if (loading) return <Loader fullPage />;
 
   return (
-    <div>
-      <Link to="/hr/jobs" className="mb-4 inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
-        ← Back to my jobs
-      </Link>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 rounded-[28px] border border-slate-200/80 bg-white/95 p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-sm text-slate-500">Manage your job postings</p>
+          <h2 className="mt-1 text-2xl font-semibold text-slate-900">{isEdit ? 'Edit job listing' : 'Create new job post'}</h2>
+        </div>
+        <Link to="/hr/jobs" className="btn btn-ghost">
+          ← Back to my jobs
+        </Link>
+      </div>
 
       <PageHeader title={isEdit ? 'Edit job' : 'Post a new job'} subtitle="Provide the role details and required skills." />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl space-y-5" noValidate>
-        <div className="card space-y-4">
+      <div className="card">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
           <div className="grid gap-4 sm:grid-cols-2">
             <Input label="Job title" error={errors.title?.message} {...register('title')} />
             <Input label="Company" error={errors.company?.message} {...register('company')} />
@@ -137,17 +143,17 @@ const JobForm = () => {
             error={errors.description?.message}
             {...register('description')}
           />
-        </div>
 
-        <div className="flex gap-3">
-          <Button type="submit" loading={isSubmitting}>
-            {isEdit ? 'Save changes' : 'Post job'}
-          </Button>
-          <Button type="button" variant="secondary" onClick={() => navigate('/hr/jobs')}>
-            Cancel
-          </Button>
-        </div>
-      </form>
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <Button type="submit" loading={isSubmitting}>
+              {isEdit ? 'Save changes' : 'Post job'}
+            </Button>
+            <Button type="button" variant="secondary" onClick={() => navigate('/hr/jobs')}>
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

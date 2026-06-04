@@ -8,39 +8,42 @@ import { statusBadgeClass } from '../../utils/helpers';
  */
 const JobCard = ({ job, to }) => {
   return (
-    <div className="card flex h-full flex-col">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h3 className="text-base font-semibold text-gray-900">{job.title}</h3>
-          <p className="text-sm text-gray-500">
-            {(job.company || job.postedBy?.company) ?? 'Company not specified'} · {job.location}
-          </p>
+    <div className="card group flex h-full flex-col overflow-hidden">
+      <div className="h-1 w-full bg-gradient-to-r from-primary-600 via-sky-400 to-cyan-400" />
+      <div className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-semibold text-slate-900 group-hover:text-primary-600">{job.title}</h3>
+            <p className="mt-1 text-sm text-slate-500">
+              {(job.company || job.postedBy?.company) ?? 'Company not specified'} · {job.location}
+            </p>
+          </div>
+          <span className={`badge ${statusBadgeClass(job.status)}`}>{job.status}</span>
         </div>
-        <span className={`badge ${statusBadgeClass(job.status)}`}>{job.status}</span>
-      </div>
 
-      <div className="mt-3 flex flex-wrap gap-2 text-xs text-gray-500">
-        <Badge color="blue">{job.jobType}</Badge>
-        {job.experienceLevel && <Badge color="gray">{job.experienceLevel}</Badge>}
-        {job.salaryRange && <Badge color="gray">{job.salaryRange}</Badge>}
-      </div>
-
-      <p className="mt-3 line-clamp-2 flex-1 text-sm text-gray-600">{job.description}</p>
-
-      {job.requiredSkills?.length > 0 && (
-        <div className="mt-3">
-          <p className="mb-1 text-xs font-medium text-gray-400">Required skills</p>
-          <SkillTags skills={job.requiredSkills} variant="primary" max={5} />
+        <div className="flex flex-wrap gap-2 text-xs text-slate-500">
+          <Badge color="blue">{job.jobType}</Badge>
+          {job.experienceLevel && <Badge color="gray">{job.experienceLevel}</Badge>}
+          {job.salaryRange && <Badge color="gray">{job.salaryRange}</Badge>}
         </div>
-      )}
 
-      <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
-        <span className="text-xs text-gray-400">
-          Posted {new Date(job.createdAt).toLocaleDateString()}
-        </span>
-        <Link to={to} className="btn btn-primary btn-sm">
-          View &amp; Apply
-        </Link>
+        <p className="line-clamp-3 flex-1 text-sm leading-6 text-slate-600">{job.description}</p>
+
+        {job.requiredSkills?.length > 0 && (
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Required skills</p>
+            <SkillTags skills={job.requiredSkills} variant="primary" max={5} />
+          </div>
+        )}
+
+        <div className="mt-auto flex flex-col gap-3 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <span className="text-xs text-slate-400">
+            Posted {new Date(job.createdAt).toLocaleDateString()}
+          </span>
+          <Link to={to} className="btn btn-primary btn-sm">
+            View &amp; Apply
+          </Link>
+        </div>
       </div>
     </div>
   );

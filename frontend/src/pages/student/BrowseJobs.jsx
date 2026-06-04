@@ -62,19 +62,30 @@ const BrowseJobs = () => {
     <div>
       <PageHeader title="Browse Jobs" subtitle="Find roles that match your skills and apply." />
 
-      <div className="mb-5 grid gap-3 sm:grid-cols-3">
-        <Input
-          placeholder="Search by title, company, or location"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="sm:col-span-2"
-        />
-        <Select
-          placeholder="All job types"
-          options={JOB_TYPES}
-          value={jobType}
-          onChange={(e) => setJobType(e.target.value)}
-        />
+      <div className="mb-8 rounded-[28px] border border-slate-200/80 bg-white/95 p-6 shadow-sm shadow-slate-200/50">
+        <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary-600">Find your next role</p>
+            <p className="mt-2 text-sm text-slate-500">Browse open positions and filter by role, company, or skills.</p>
+          </div>
+          <div className="inline-flex rounded-full bg-slate-100 px-4 py-2 text-sm text-slate-600">
+            Open jobs only
+          </div>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-3">
+          <Input
+            placeholder="Search by title, company, or location"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="lg:col-span-2"
+          />
+          <Select
+            placeholder="All job types"
+            options={JOB_TYPES}
+            value={jobType}
+            onChange={(e) => setJobType(e.target.value)}
+          />
+        </div>
       </div>
 
       {loading ? (

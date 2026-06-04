@@ -33,7 +33,7 @@ const Topbar = ({ onMenuClick }) => {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 lg:px-6">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-200/80 bg-white/95 px-4 lg:px-6 backdrop-blur-xl shadow-sm shadow-slate-200/50">
       <button
         type="button"
         onClick={onMenuClick}
@@ -51,7 +51,7 @@ const Topbar = ({ onMenuClick }) => {
         <button
           type="button"
           onClick={() => setMenuOpen((v) => !v)}
-          className="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-gray-100"
+          className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm transition hover:bg-slate-50"
         >
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-xs font-semibold text-white">
             {initials}
@@ -66,15 +66,15 @@ const Topbar = ({ onMenuClick }) => {
         </button>
 
         {menuOpen && (
-          <div className="absolute right-0 mt-2 w-48 rounded-md border border-gray-200 bg-white py-1">
-            <div className="border-b border-gray-100 px-4 py-2">
-              <p className="truncate text-sm font-medium text-gray-900">{user?.name}</p>
-              <p className="truncate text-xs text-gray-500">{user?.email}</p>
+          <div className="absolute right-0 mt-2 w-56 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
+            <div className="border-b border-slate-100 px-4 py-4">
+              <p className="truncate text-sm font-semibold text-slate-900">{user?.name}</p>
+              <p className="truncate text-xs text-slate-500">{user?.email}</p>
             </div>
             <button
               type="button"
               onClick={handleLogout}
-              className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-50"
+              className="block w-full px-4 py-3 text-left text-sm text-red-600 hover:bg-slate-50"
             >
               Sign out
             </button>

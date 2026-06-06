@@ -4,6 +4,14 @@
 
 Live repository: https://github.com/diksha345-b/Smart-Placement-Portal
 
+## Live Demo
+
+Frontend:
+https://smart-placement-portal-mauve.vercel.app
+
+Backend:
+https://smart-placement-backend-ealp.onrender.com
+
 A production-style placement portal where **students** upload resumes and apply
 to jobs, **recruiters (HR)** post jobs and review auto-ranked applicants, and
 **admins** manage users, jobs, and view platform analytics.
